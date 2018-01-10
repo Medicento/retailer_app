@@ -20,6 +20,8 @@
         app:hint="GST Number"
         android:id="@+id/gstNumView"
         app:leftImage="@drawable/gst"/>
+
+
     <Button
         android:layout_height="wrap_content"
         android:layout_width="match_parent"

@@ -16,11 +16,7 @@
         android:gravity="center"
         android:padding="20dp"
         android:layout_height="match_parent">
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/logo"
-            android:background="@android:color/transparent"/>
+        <include layout="@layout/logo" />
 
         <com.medicento.medicento.components.MEditText
             android:layout_width="match_parent"
