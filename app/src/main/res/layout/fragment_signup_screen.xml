@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:padding="20dp"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="match_parent">
+
+        <com.medicento.medicento.components.MEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hint="Email Address"
+            app:leftImage="@drawable/mail"/>
+
+        <com.medicento.medicento.components.MEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hint="DL Number"
+            app:leftImage="@drawable/locked"/>
+
+        <com.medicento.medicento.components.MEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hint="Shop's Name"
+            app:leftImage="@drawable/mall"/>
+
+        <com.medicento.medicento.components.MEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hint="Owner's Full Name"
+            app:leftImage="@drawable/user"/>
+
+        <com.medicento.medicento.components.MEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hint="Phone Number"
+            app:leftImage="@drawable/call"/>
+
+        <com.medicento.medicento.components.MEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hint="Password"
+            app:leftImage="@drawable/locked"/>
+
+
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Signup"
+            android:layout_marginTop="20dp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/background_button"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Medicento</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="signup_prompt">New here? <b>SignUp</b></string>
+</resources>
