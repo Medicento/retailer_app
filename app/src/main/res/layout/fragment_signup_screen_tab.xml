@@ -6,15 +6,14 @@
     android:layout_height="match_parent"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:gravity="center"
-        android:padding="20dp"
         android:layout_height="match_parent">
         <ImageView
             android:layout_width="100dp"
@@ -22,47 +21,69 @@
             android:src="@drawable/logo"
             android:background="@android:color/transparent"/>
 
-        <com.medicento.medicento.components.MEditText
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hint="Email Address"
-            android:id="@+id/emailView"
-            app:leftImage="@drawable/mail"/>
+            android:orientation="horizontal">
+            <com.medicento.medicento.components.MEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:hint="Email Address"
+                android:id="@+id/emailView"
+                android:layout_weight="1"
+                app:leftImage="@drawable/mail"/>
 
+            <com.medicento.medicento.components.MEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:hint="Password"
+                android:id="@+id/passwordView"
+                android:layout_weight="1"
+                app:leftImage="@drawable/locked"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
         <com.medicento.medicento.components.MEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:hint="DL Number"
             android:id="@+id/dlNumberView"
+            android:layout_weight="1"
             app:leftImage="@drawable/locked"/>
 
+            <com.medicento.medicento.components.MEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint="Phone Number"
+                android:layout_weight="1"
+                android:id="@+id/phoneView"
+                app:leftImage="@drawable/call"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
         <com.medicento.medicento.components.MEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:hint="Shop's Name"
             android:id="@+id/shopView"
+            android:layout_weight="1"
             app:leftImage="@drawable/mall"/>
 
         <com.medicento.medicento.components.MEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:hint="Owner's Full Name"
+            android:layout_weight="1"
             android:id="@+id/nameView"
             app:leftImage="@drawable/user"/>
+        </LinearLayout>
 
-        <com.medicento.medicento.components.MEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:hint="Phone Number"
-            android:id="@+id/phoneView"
-            app:leftImage="@drawable/call"/>
-
-        <com.medicento.medicento.components.MEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:hint="Password"
-            android:id="@+id/passwordView"
-            app:leftImage="@drawable/locked"/>
 
 
         <Button
@@ -72,7 +93,6 @@
             android:layout_marginTop="20dp"
             android:textColor="@android:color/white"
             android:background="@drawable/background_button"/>
-
-    </LinearLayout>
-    </ScrollView>
+</LinearLayout>
+</ScrollView>
 </RelativeLayout>

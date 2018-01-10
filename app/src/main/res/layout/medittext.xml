@@ -22,8 +22,8 @@
 
     <ImageView
         android:id="@+id/leftImage"
-        android:layout_height="30dp"
-        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:layout_width="25dp"
         android:layout_alignTop="@id/edit_cover"
         android:scaleType="centerInside"
         android:layout_alignBottom="@id/edit_cover" />

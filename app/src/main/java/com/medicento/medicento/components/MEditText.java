@@ -68,4 +68,12 @@ public class MEditText extends LinearLayout {
         editText.setTransformationMethod(new PasswordTransformationMethod());
         editText.setSelection(editText.getText().length());
     }
+
+    public String getText(){
+        return editText.getText().toString();
+    }
+
+    public void setText(String text){
+        editText.setText(text);
+    }
 }

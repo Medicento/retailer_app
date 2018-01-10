@@ -21,7 +21,6 @@ public class LoginScreen extends MFragment {
         if (getArguments() != null) {
 
         }
-        mainActivity.getSupportActionBar().hide();
     }
 
     @Override
@@ -41,10 +40,11 @@ public class LoginScreen extends MFragment {
     }
 
     void init(){
+        mainActivity.getSupportActionBar().hide();
         (findViewById(R.id.toSignupView)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.switchFragment(new SignUpScreen(),true);
+                mainActivity.switchFragment(new GSTScreen(),true);
             }
         });
     }

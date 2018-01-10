@@ -1,0 +1,54 @@
+package com.medicento.medicento.screens;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.medicento.medicento.MFragment;
+import com.medicento.medicento.R;
+import com.medicento.medicento.components.MEditText;
+
+/**
+ * Created by sid on 10/1/18.
+ */
+
+public class GSTScreen extends MFragment {
+
+    MEditText gstNumView;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            /*mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);*/
+        }
+        mainActivity.getSupportActionBar().hide();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_ask_gst, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, final Bundle bundle){
+        init();
+    }
+
+    void init(){
+        View view = this.getView();
+        gstNumView = (MEditText)view.findViewById(R.id.gstNumView);
+        view.findViewById(R.id.toRegister).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle gstData = new Bundle();
+                gstData.putString("gstNum",gstNumView.getText());
+                mainActivity.switchFragment(new SignUpScreen(),true);
+            }
+        });
+    }
+}
