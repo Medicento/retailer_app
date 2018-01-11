@@ -17,7 +17,8 @@
         android:layout_width="match_parent"
         app:hint="GST Number"
         android:id="@+id/gstNumView"
-        app:leftImage="@drawable/gst"/>
+        app:leftImage="@drawable/gst"
+        />
 
 
     <Button

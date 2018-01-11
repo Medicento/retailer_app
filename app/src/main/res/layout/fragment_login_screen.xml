@@ -22,14 +22,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:hint="Email Address"
-        app:leftImage="@drawable/mail"/>
+        app:leftImage="@drawable/mail"
+        android:id="@+id/emailView"/>
 
     <com.medicento.medicento.components.MEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:hint="Password"
         app:isPassword="true"
-        app:leftImage="@drawable/locked"/>
+        app:leftImage="@drawable/locked"
+        android:id="@+id/passwordView"/>
 
     <Button
         android:id="@+id/button_login"

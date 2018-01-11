@@ -52,6 +52,10 @@ public class MEditText extends LinearLayout {
         editText.setText(attributeSet.getAttributeValue(packageName,"text"));
         if(attributeSet.getAttributeBooleanValue(packageName,"isPassword",false))
             editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
+        if(attributeSet.getAttributeIntValue(packageName,"inputType",0)==1){
+            editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+        }
     }
     void init(Context context){
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

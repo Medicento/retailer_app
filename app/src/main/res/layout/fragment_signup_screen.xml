@@ -55,6 +55,7 @@
             android:layout_height="wrap_content"
             app:hint="Phone Number"
             android:id="@+id/phoneView"
+            app:inputType="number"
             app:leftImage="@drawable/call"/>
 
         <com.medicento.medicento.components.MEditText

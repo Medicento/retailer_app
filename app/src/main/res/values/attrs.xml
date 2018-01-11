@@ -5,5 +5,9 @@
         <attr name="hint" format="string"/>
         <attr name="text" format="string"/>
         <attr name="isPassword" format="boolean"/>
+        <attr name="inputType" format="enum">
+            <enum name="number" value="1"/>
+            <enum name="text" value="0"/>
+        </attr>
     </declare-styleable>
 </resources>
