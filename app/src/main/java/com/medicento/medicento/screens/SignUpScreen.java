@@ -1,5 +1,6 @@
 package com.medicento.medicento.screens;
 
+import android.app.ProgressDialog;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -112,6 +113,9 @@ public class SignUpScreen extends MFragment {
     }
 
     void trySignUp(String[] args){
+        final ProgressDialog dialog = new ProgressDialog(mainActivity);
+        dialog.setMessage("Logging In");
+        dialog.show();
         (new HttpRequest("/register", Method.POST))
                 .addParam("shopname",args[0])
                 .addParam("username",args[1])
@@ -143,6 +147,7 @@ public class SignUpScreen extends MFragment {
                         else{
                             Log.d("response","Failed");
                         }
+                        dialog.cancel();
                     }
                 });
     }

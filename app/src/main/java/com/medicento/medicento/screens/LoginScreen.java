@@ -1,10 +1,13 @@
 package com.medicento.medicento.screens;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v4.widget.CircularProgressDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.medicento.medicento.Constant;
@@ -79,8 +82,9 @@ public class LoginScreen extends MFragment {
     }
 
     void tryLogin(String username,String password){
-        username = "mehtab@gmail.com";
-        password = "25nov1992";
+        final ProgressDialog dialog = new ProgressDialog(mainActivity);
+        dialog.setMessage("Logging In");
+        dialog.show();
         (new HttpRequest("/login", Method.POST))
                 .addParam("username",username)
                 .addParam("password",password)
@@ -113,6 +117,7 @@ public class LoginScreen extends MFragment {
                         else{
                             Log.d("Response","Error");
                         }
+                        dialog.cancel();
                     }
                 });
     }

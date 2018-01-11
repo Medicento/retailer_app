@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.medicento.medicento.Constant;
 import com.medicento.medicento.MFragment;
 import com.medicento.medicento.R;
 
@@ -33,10 +34,16 @@ public class HomeScreen extends MFragment{
 
     @Override
     public void onViewCreated(View view, final Bundle bundle){
-        init();
+        init(view);
     }
 
-    void init(){
-
+    void init(View view){
+        (view.findViewById(R.id.logout)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                preference.delete(Constant.LOGINDATA);
+                mainActivity.switchFragment(new LoginScreen());
+            }
+        });
     }
 }

@@ -92,4 +92,10 @@ public class Preference {
         return (new Gson()).fromJson(json,type);
     }
 
+    public void delete(String key){
+        SharedPreferences.Editor editor = getPrefEditor();
+        editor.remove(key);
+        editor.apply();
+    }
+
 }
