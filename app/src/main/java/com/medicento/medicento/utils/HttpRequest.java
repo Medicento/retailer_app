@@ -3,6 +3,7 @@ package com.medicento.medicento.utils;
 import android.os.AsyncTask;
 
 import com.medicento.medicento.Config;
+import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -88,22 +89,28 @@ public class HttpRequest {
 
     private Request buildRequest(){
 
-        HttpUrl.Builder builder  = HttpUrl.parse(url).newBuilder();
-        for(Map.Entry<String,String> param : params.entrySet()){
-            builder.addQueryParameter(param.getKey(),param.getValue());
-        }
-        HttpUrl urlwithquery = builder.build();
+
 
         Request.Builder requestBuilder = null;
         if(method.equals(Method.GET)) {
+            HttpUrl.Builder builder  = HttpUrl.parse(url).newBuilder();
+            for(Map.Entry<String,String> param : params.entrySet()){
+                builder.addQueryParameter(param.getKey(),param.getValue());
+            }
+            HttpUrl urlwithquery = builder.build();
             requestBuilder= new Request.Builder()
                     .url(urlwithquery)
                     .get();
         }
         else{
+            FormEncodingBuilder builder = new FormEncodingBuilder();
+            for(Map.Entry<String,String> param : params.entrySet()){
+                builder.add(param.getKey(),param.getValue());
+            }
+            RequestBody body = builder.build();
             requestBuilder= new Request.Builder()
-                    .url(urlwithquery)
-                    .post(RequestBody.create(null,new byte[0]));
+                    .url(this.url)
+                    .post(body);
         }
 
 
