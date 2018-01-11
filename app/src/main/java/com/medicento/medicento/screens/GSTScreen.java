@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.medicento.medicento.MFragment;
 import com.medicento.medicento.R;
@@ -29,6 +30,7 @@ public class GSTScreen extends MFragment {
             mParam2 = getArguments().getString(ARG_PARAM2);*/
         }
         mainActivity.getSupportActionBar().hide();
+        mainActivity.clearBackStack();
     }
 
     @Override
@@ -63,7 +65,10 @@ public class GSTScreen extends MFragment {
         view.findViewById(R.id.toRegister).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toSignUp();
+                if(!gstNumView.getText().trim().isEmpty()) toSignUp();
+                else{
+                    Toast.makeText(mainActivity,"Incomplete Data",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -71,6 +76,6 @@ public class GSTScreen extends MFragment {
     void toSignUp(){
         Bundle gstData = new Bundle();
         gstData.putString("gstNum",gstNumView.getText());
-        mainActivity.switchFragment(new SignUpScreen(),true);
+        mainActivity.switchFragment(new SignUpScreen(),gstData,true);
     }
 }

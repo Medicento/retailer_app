@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.medicento.medicento.screens.SplashScreen;
@@ -47,6 +48,23 @@ public class MainActivity extends AppCompatActivity {
 
     public void switchFragment(Fragment fragment,boolean addTobackStack){
         switchFragment(fragment,addTobackStack,null,false,false);
+    }
+
+    public void switchFragment(Fragment fragment,Bundle bundle,boolean addTobackStack){
+        switchFragment(fragment,addTobackStack,bundle,false,false);
+    }
+
+    public void clearBackStack(){
+
+    }
+
+    public void popScreen(){
+        getSupportFragmentManager().popBackStack();
+    }
+    public void popScreens(int number){
+        for(int i=0;i<number;i++){
+            getSupportFragmentManager().popBackStack();
+        }
     }
 
     @Override

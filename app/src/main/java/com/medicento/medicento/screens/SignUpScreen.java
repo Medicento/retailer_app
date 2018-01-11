@@ -2,14 +2,22 @@ package com.medicento.medicento.screens;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.medicento.medicento.MFragment;
 import com.medicento.medicento.R;
 import com.medicento.medicento.components.MEditText;
 import com.medicento.medicento.models.Registration;
+import com.medicento.medicento.utils.HttpRequest;
+import com.medicento.medicento.utils.Method;
+
+import org.json.JSONObject;
 
 /**
  * Created by sid on 10/1/18.
@@ -20,7 +28,7 @@ public class SignUpScreen extends MFragment {
     ViewGroup container;
 
     MEditText nameView,emailView,dlNumberView,phoneView,passwordView,shopView;
-
+    Button register;
     Registration data = new Registration();
 
     @Override
@@ -31,7 +39,7 @@ public class SignUpScreen extends MFragment {
             mParam2 = getArguments().getString(ARG_PARAM2);*/
         }
         mainActivity.getSupportActionBar().hide();
-
+        mainActivity.clearBackStack();
     }
 
     @Override
@@ -78,6 +86,65 @@ public class SignUpScreen extends MFragment {
         phoneView=(MEditText) getView(view,R.id.phoneView);
         passwordView=(MEditText) getView(view,R.id.passwordView);
         shopView=(MEditText) getView(view,R.id.shopView);
+        register = (Button)getView(view,R.id.register);
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = emailView.getText().trim(),
+                        name = nameView.getText().trim(),
+                        dlno = dlNumberView.getText().trim(),
+                        phno = phoneView.getText().trim(),
+                        password = passwordView.getText(),
+                        shopname = shopView.getText().trim();
+
+                if(!(
+                email.isEmpty() || name.isEmpty() ||
+                dlno.isEmpty() || phno.isEmpty() ||
+                password.isEmpty() || shopname.isEmpty())){
+                    trySignUp(new String[]{shopname,email,password,getArguments().getString("gstNum"),
+                    dlno,phno,name});
+                }
+                else {
+                    Toast.makeText(mainActivity,"Incomplete Data",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    void trySignUp(String[] args){
+        (new HttpRequest("/register", Method.POST))
+                .addParam("shopname",args[0])
+                .addParam("username",args[1])
+                .addParam("password",args[2])
+                .addParam("gstNo",args[3])
+                .addParam("dlNo",args[4])
+                .addParam("phno",args[5])
+                .addParam("owner",args[6])
+                .sendRequest(new HttpRequest.OnResponseListener() {
+                    @Override
+                    public void OnResponse(String response) {
+                        if(response!=null){
+                            try{
+                                JSONObject registerResponse = new JSONObject(response);
+                                if(registerResponse.getBoolean("success")){
+                                    mainActivity.switchFragment(new LoginScreen());
+                                }
+                                else{
+                                    Toast.makeText(mainActivity,"Failed",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            catch (Exception e){
+
+                            }
+                            Toast.makeText(mainActivity,"Successful",Toast.LENGTH_SHORT).show();
+                            mainActivity.popScreens(2);
+                            Log.d("Response",response);
+                        }
+                        else{
+                            Log.d("response","Failed");
+                        }
+                    }
+                });
     }
 
     void saveData(){

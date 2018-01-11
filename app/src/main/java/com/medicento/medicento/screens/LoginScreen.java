@@ -7,11 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.medicento.medicento.Constant;
 import com.medicento.medicento.MFragment;
 import com.medicento.medicento.R;
 import com.medicento.medicento.components.MEditText;
+import com.medicento.medicento.models.LoginObject;
 import com.medicento.medicento.utils.HttpRequest;
 import com.medicento.medicento.utils.Method;
+import com.medicento.medicento.utils.Preference;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by sid on 10/1/18.
@@ -27,6 +33,7 @@ public class LoginScreen extends MFragment {
         if (getArguments() != null) {
 
         }
+        mainActivity.clearBackStack();
     }
 
     @Override
@@ -81,7 +88,27 @@ public class LoginScreen extends MFragment {
                     @Override
                     public void OnResponse(String response) {
                         if(response!=null){
-                            Log.d("Response",response);
+                            try {
+                                JSONObject loginResponse = new JSONObject(response);
+                                if(loginResponse.getBoolean("success")){
+                                    Log.d("Response",response);
+                                    LoginObject object = new LoginObject(
+                                            loginResponse.getString("id"),
+                                            loginResponse.getString("shopname"),
+                                            loginResponse.getString("username")
+                                    );
+                                    preference.put(Constant.LOGINDATA,object);
+                                    Bundle toHome = new Bundle();
+                                    toHome.putSerializable(Constant.LOGINDATA,object);
+                                    mainActivity.switchFragment(new HomeScreen(),toHome,false);
+                                }
+                                else{
+                                    Toast.makeText(mainActivity, "Failed", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                         else{
                             Log.d("Response","Error");

@@ -6,8 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.reflect.TypeToken;
+import com.medicento.medicento.Constant;
 import com.medicento.medicento.MFragment;
 import com.medicento.medicento.R;
+import com.medicento.medicento.models.LoginObject;
+import com.medicento.medicento.utils.Preference;
 
 public class SplashScreen extends MFragment {
 
@@ -24,6 +28,7 @@ public class SplashScreen extends MFragment {
             mParam2 = getArguments().getString(ARG_PARAM2);*/
         }
         mainActivity.getSupportActionBar().hide();
+        mainActivity.clearBackStack();
     }
 
     @Override
@@ -38,7 +43,13 @@ public class SplashScreen extends MFragment {
         (new Handler()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                mainActivity.switchFragment(new LoginScreen());
+                LoginObject object = preference.get(Constant.LOGINDATA,new TypeToken<LoginObject>(){}.getType());
+                if(object==null) mainActivity.switchFragment(new LoginScreen());
+                else{
+                    Bundle toHome = new Bundle();
+                    toHome.putSerializable(Constant.LOGINDATA,object);
+                    mainActivity.switchFragment(new HomeScreen(),toHome,false);
+                }
             }
         },1000);
     }
