@@ -40,6 +40,6 @@ public class SplashScreen extends MFragment {
             public void run() {
                 mainActivity.switchFragment(new LoginScreen());
             }
-        },500);
+        },700);
     }
 }
