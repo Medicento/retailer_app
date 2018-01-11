@@ -2,9 +2,13 @@ package com.medicento.medicento.screens;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.EventLog;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 
 import com.medicento.medicento.MFragment;
 import com.medicento.medicento.R;
@@ -42,13 +46,31 @@ public class GSTScreen extends MFragment {
     void init(){
         View view = this.getView();
         gstNumView = (MEditText)view.findViewById(R.id.gstNumView);
+
+        /*gstNumView.setOnEnterListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == EditorInfo.IME_ACTION_SEARCH ||
+                        keyCode == EditorInfo.IME_ACTION_DONE ||
+                        event.getAction() == KeyEvent.ACTION_DOWN &&
+                        event.getKeyCode()==KeyEvent.KEYCODE_NUMPAD_ENTER){
+                    toSignUp();
+                    return true;
+                }
+                return false;
+            }
+        });*/
         view.findViewById(R.id.toRegister).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle gstData = new Bundle();
-                gstData.putString("gstNum",gstNumView.getText());
-                mainActivity.switchFragment(new SignUpScreen(),true);
+                toSignUp();
             }
         });
+    }
+
+    void toSignUp(){
+        Bundle gstData = new Bundle();
+        gstData.putString("gstNum",gstNumView.getText());
+        mainActivity.switchFragment(new SignUpScreen(),true);
     }
 }

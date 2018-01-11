@@ -12,7 +12,10 @@
     android:gravity="center"
     android:layout_height="match_parent">
 
-    <include layout="@layout/logo"/>
+    <com.medicento.medicento.components.Logo
+        android:layout_height="100dp"
+        android:layout_width="100dp"
+        android:layout_marginBottom="40dp"/>
 
 
     <com.medicento.medicento.components.MEditText

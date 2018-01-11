@@ -10,9 +10,11 @@ import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.medicento.medicento.R;
 
@@ -75,5 +77,13 @@ public class MEditText extends LinearLayout {
 
     public void setText(String text){
         editText.setText(text);
+    }
+
+    public void setOnEditorActionListener(TextView.OnEditorActionListener listener){
+        editText.setOnEditorActionListener(listener);
+    }
+
+    public void setOnEnterListener(View.OnKeyListener listener){
+        editText.setOnKeyListener(listener);
     }
 }
