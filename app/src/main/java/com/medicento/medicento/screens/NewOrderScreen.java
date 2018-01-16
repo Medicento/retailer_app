@@ -65,6 +65,7 @@ public class NewOrderScreen extends MFragment {
                 String quantity = quantityView.getText().trim();
                 if(!medicineName.isEmpty() && !quantity.isEmpty()){
                     adapter.add(new Product(medicineName,Integer.parseInt(quantity)),0);
+                    orderList.scrollToPosition(0);
                 }
             }
         });
@@ -83,7 +84,7 @@ public class NewOrderScreen extends MFragment {
             notifyItemInserted(list.size()-1);
         }
 
-        public void add(Product product,int index){
+        void add(Product product,int index){
             this.list.add(index,product);
             notifyItemInserted(index);
         }
