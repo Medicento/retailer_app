@@ -42,12 +42,12 @@ public class LoginScreen extends MFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_login_screen, container, false);
-        init();
         return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle bundle){
+        init();
     }
 
     void init(){
