@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.medicento.medicento.MFragment;
@@ -30,7 +31,10 @@ public class SignUpScreen extends MFragment {
 
     MEditText nameView,emailView,dlNumberView,phoneView,passwordView,shopView,gstView;
     Button register;
+    ImageButton togglePassword;
     Registration data = new Registration();
+
+    boolean isPasswordShown = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -110,6 +114,24 @@ public class SignUpScreen extends MFragment {
                 }
             }
         });
+        togglePassword = (ImageButton)getView(view,R.id.togglepassword);
+        togglePassword.setImageResource(isPasswordShown?R.drawable.ic_unview:R.drawable.ic_view);
+        if(isPasswordShown) passwordView.revealPassword();
+        else passwordView.hidePassword();
+        togglePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isPasswordShown){
+                    passwordView.hidePassword();
+                    togglePassword.setImageResource(R.drawable.ic_view);
+                }
+                else{
+                    passwordView.revealPassword();
+                    togglePassword.setImageResource(R.drawable.ic_unview);
+                }
+                isPasswordShown = !isPasswordShown;
+            }
+        });
     }
 
     void trySignUp(String[] args){
@@ -143,7 +165,7 @@ public class SignUpScreen extends MFragment {
                             }
                         }
                         else{
-                            Log.d("response","Failed");
+                            Toast.makeText(mainActivity,"Check Internet Connectivity!",Toast.LENGTH_LONG).show();
                         }
                         dialog.cancel();
                     }

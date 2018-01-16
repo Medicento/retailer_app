@@ -25,6 +25,9 @@
         app:leftImage="@drawable/mail"
         android:id="@+id/emailView"/>
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <com.medicento.medicento.components.MEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,6 +35,18 @@
         app:isPassword="true"
         app:leftImage="@drawable/locked"
         android:id="@+id/passwordView"/>
+
+        <ImageButton
+            android:id="@+id/togglepassword"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@id/passwordView"
+            android:layout_alignBottom="@id/passwordView"
+            android:src="@drawable/ic_view"
+            android:layout_marginEnd="10dp"
+            android:background="@android:color/transparent"/>
+    </RelativeLayout>
 
     <Button
         android:id="@+id/button_login"

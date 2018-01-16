@@ -66,7 +66,7 @@ public class MEditText extends LinearLayout {
     }
 
     public void revealPassword(){
-        editText.setTransformationMethod(new PasswordTransformationMethod());
+        editText.setTransformationMethod(null);
         editText.setSelection(editText.getText().length());
     }
 

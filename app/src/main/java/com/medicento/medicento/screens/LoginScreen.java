@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -30,6 +32,7 @@ public class LoginScreen extends MFragment {
 
     View view=null;
     MEditText emailView,passwordView;
+    boolean isPasswordShown = false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +75,21 @@ public class LoginScreen extends MFragment {
                 else{
                     Toast.makeText(mainActivity,"Incomplete Data",Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        final ImageButton togglePassword = (ImageButton)(findViewById(R.id.togglepassword));
+        togglePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isPasswordShown){
+                    passwordView.hidePassword();
+                    togglePassword.setImageResource(R.drawable.ic_view);
+                }
+                else{
+                    passwordView.revealPassword();
+                    togglePassword.setImageResource(R.drawable.ic_unview);
+                }
+                isPasswordShown = !isPasswordShown;
             }
         });
     }
