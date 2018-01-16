@@ -57,7 +57,7 @@ public class LoginScreen extends MFragment {
         (findViewById(R.id.toSignupView)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.switchFragment(new GSTScreen(),true);
+                mainActivity.switchFragment(new SignUpScreen(),true);
             }
         });
 

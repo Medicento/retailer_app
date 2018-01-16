@@ -50,6 +50,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <com.medicento.medicento.components.MEditText
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:hint="GST Number"
+                android:id="@+id/gstNumView"
+                app:leftImage="@drawable/gst"
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp"
+                />
         <com.medicento.medicento.components.MEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,17 +67,7 @@
             android:id="@+id/dlNumberView"
             android:layout_weight="1"
             app:leftImage="@drawable/locked"
-            android:layout_marginEnd="10dp"/>
-
-            <com.medicento.medicento.components.MEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:hint="Phone Number"
-                android:layout_weight="1"
-                android:id="@+id/phoneView"
-                android:layout_marginStart="10dp"
-                app:inputType="number"
-                app:leftImage="@drawable/call"/>
+            android:layout_marginStart="10dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -83,6 +83,21 @@
             android:layout_marginEnd="10dp"
             app:leftImage="@drawable/mall"/>
 
+            <com.medicento.medicento.components.MEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint="Phone Number"
+                android:layout_weight="1"
+                android:id="@+id/phoneView"
+                android:layout_marginStart="10dp"
+                app:inputType="number"
+                app:leftImage="@drawable/call"/>
+
+
+        </LinearLayout>
+
+
+
         <com.medicento.medicento.components.MEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,7 +106,11 @@
             android:id="@+id/nameView"
             android:layout_marginStart="10dp"
             app:leftImage="@drawable/user"/>
-        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="top">
 
 
 
@@ -100,9 +119,11 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:text="Signup"
+            android:layout_weight="1"
             android:layout_marginTop="20dp"
             android:textColor="@android:color/white"
             android:background="@drawable/background_button"/>
+    </LinearLayout>
 </LinearLayout>
 </ScrollView>
 </RelativeLayout>

@@ -30,6 +30,14 @@
             app:leftImage="@drawable/mail"/>
 
         <com.medicento.medicento.components.MEditText
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            app:hint="GST Number"
+            android:id="@+id/gstNumView"
+            app:leftImage="@drawable/gst"
+            />
+
+        <com.medicento.medicento.components.MEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:hint="DL Number"

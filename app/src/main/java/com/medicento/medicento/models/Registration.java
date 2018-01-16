@@ -5,5 +5,5 @@ package com.medicento.medicento.models;
  */
 
 public class Registration {
-    public String name,phoneNumber,dlNumber,password,shopName,email;
+    public String name,phoneNumber,dlNumber,password,shopName,email,gstNumber;
 }

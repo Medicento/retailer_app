@@ -28,7 +28,7 @@ public class SignUpScreen extends MFragment {
     LayoutInflater inflater;
     ViewGroup container;
 
-    MEditText nameView,emailView,dlNumberView,phoneView,passwordView,shopView;
+    MEditText nameView,emailView,dlNumberView,phoneView,passwordView,shopView,gstView;
     Button register;
     Registration data = new Registration();
 
@@ -86,6 +86,7 @@ public class SignUpScreen extends MFragment {
         passwordView=(MEditText) getView(view,R.id.passwordView);
         shopView=(MEditText) getView(view,R.id.shopView);
         register = (Button)getView(view,R.id.register);
+        gstView =(MEditText)getView(view,R.id.gstNumView);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,13 +95,14 @@ public class SignUpScreen extends MFragment {
                         dlno = dlNumberView.getText().trim(),
                         phno = phoneView.getText().trim(),
                         password = passwordView.getText(),
-                        shopname = shopView.getText().trim();
+                        shopname = shopView.getText().trim(),
+                        gstNum=gstView.getText().trim();
 
                 if(!(
                 email.isEmpty() || name.isEmpty() ||
                 dlno.isEmpty() || phno.isEmpty() ||
-                password.isEmpty() || shopname.isEmpty())){
-                    trySignUp(new String[]{shopname,email,password,getArguments().getString("gstNum"),
+                password.isEmpty() || shopname.isEmpty()) || gstNum.isEmpty()){
+                    trySignUp(new String[]{shopname,email,password,gstNum,
                     dlno,phno,name});
                 }
                 else {
@@ -112,7 +114,7 @@ public class SignUpScreen extends MFragment {
 
     void trySignUp(String[] args){
         final ProgressDialog dialog = new ProgressDialog(mainActivity);
-        dialog.setMessage("Logging In");
+        dialog.setMessage("Registering");
         dialog.show();
         (new HttpRequest("/register", Method.POST))
                 .addParam("shopname",args[0])
@@ -129,7 +131,8 @@ public class SignUpScreen extends MFragment {
                             try{
                                 JSONObject registerResponse = new JSONObject(response);
                                 if(registerResponse.getBoolean("success")){
-                                    mainActivity.switchFragment(new LoginScreen());
+                                    Toast.makeText(mainActivity,"Successful",Toast.LENGTH_SHORT).show();
+                                    mainActivity.popScreen();
                                 }
                                 else{
                                     Toast.makeText(mainActivity,"Failed",Toast.LENGTH_SHORT).show();
@@ -138,9 +141,6 @@ public class SignUpScreen extends MFragment {
                             catch (Exception e){
 
                             }
-                            Toast.makeText(mainActivity,"Successful",Toast.LENGTH_SHORT).show();
-                            mainActivity.popScreens(2);
-                            Log.d("Response",response);
                         }
                         else{
                             Log.d("response","Failed");
@@ -157,6 +157,7 @@ public class SignUpScreen extends MFragment {
         data.phoneNumber=phoneView.getText();
         data.password=passwordView.getText();
         data.shopName=shopView.getText();
+        data.gstNumber = gstView.getText();
     }
 
     void populateData(){
@@ -166,5 +167,6 @@ public class SignUpScreen extends MFragment {
         phoneView.setText(data.phoneNumber);
         passwordView.setText(data.password);
         shopView.setText(data.shopName);
+        gstView.setText(data.gstNumber);
     }
 }
