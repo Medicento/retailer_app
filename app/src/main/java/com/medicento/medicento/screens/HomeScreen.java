@@ -1,10 +1,11 @@
 package com.medicento.medicento.screens;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -29,8 +30,8 @@ public class HomeScreen extends MFragment implements NavigationView.OnNavigation
 
     DrawerLayout drawer;
     FragmentManager fragmentManager;
-    Toolbar toolbar;
 
+    MFragment NewOrderFragment, InventoryFragment, OrdersFragment;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +39,10 @@ public class HomeScreen extends MFragment implements NavigationView.OnNavigation
             /*mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);*/
         }
-
-
+        fragmentManager = getChildFragmentManager();
+        NewOrderFragment = new NewOrderScreen();
+        InventoryFragment = new InventoryScreen();
+        OrdersFragment = new OrdersScreen();
     }
 
     @Override
@@ -56,8 +59,10 @@ public class HomeScreen extends MFragment implements NavigationView.OnNavigation
 
     void init(View view){
         initNav();
-        mainActivity.getSupportActionBar().show();
         mainActivity.getSupportActionBar().setTitle("New Order");
+        mainActivity.getSupportActionBar().show();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.page_content,NewOrderFragment).commit();
     }
 
     void logout(){
@@ -93,13 +98,16 @@ public class HomeScreen extends MFragment implements NavigationView.OnNavigation
             case R.id.nav_new:
                 //fragmentToOpen = dashboardFragment;
                 mainActivity.getSupportActionBar().setTitle("New Orders");
+                switchFragment(NewOrderFragment);
                 break;
             case R.id.nav_inventory:
                 //fragmentToOpen = payslipFragment;
                 mainActivity.getSupportActionBar().setTitle("Inventory");
+                switchFragment(InventoryFragment);
                 break;
             case R.id.nav_orders:
                 mainActivity.getSupportActionBar().setTitle("Orders");
+                switchFragment(OrdersFragment);
                 break;
         }
         /*if(fragmentToOpen!=null){
@@ -119,4 +127,11 @@ public class HomeScreen extends MFragment implements NavigationView.OnNavigation
             //super.onBackPressed();
         }
     }*/
+
+    void switchFragment(Fragment fragment){
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if(fragment!=null){
+            transaction.replace(R.id.page_content,fragment).commit();
+        }
+    }
 }

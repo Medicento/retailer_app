@@ -36,6 +36,7 @@ public class LoginScreen extends MFragment {
         if (getArguments() != null) {
 
         }
+        mainActivity.getSupportActionBar().hide();
     }
 
     @Override
