@@ -29,8 +29,6 @@ public class GSTScreen extends MFragment {
             /*mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);*/
         }
-        mainActivity.getSupportActionBar().hide();
-        mainActivity.clearBackStack();
     }
 
     @Override

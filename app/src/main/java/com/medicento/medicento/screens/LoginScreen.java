@@ -36,7 +36,6 @@ public class LoginScreen extends MFragment {
         if (getArguments() != null) {
 
         }
-        mainActivity.clearBackStack();
     }
 
     @Override
@@ -51,14 +50,9 @@ public class LoginScreen extends MFragment {
     public void onViewCreated(View view, Bundle bundle){
     }
 
-    private View findViewById(int id){
-        return view.findViewById(id);
-    }
-
     void init(){
         emailView=(MEditText) findViewById(R.id.emailView);
         passwordView=(MEditText)findViewById(R.id.passwordView);
-        mainActivity.getSupportActionBar().hide();
         (findViewById(R.id.toSignupView)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

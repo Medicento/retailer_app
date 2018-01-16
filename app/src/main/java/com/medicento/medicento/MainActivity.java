@@ -12,11 +12,12 @@ import com.medicento.medicento.screens.SplashScreen;
 
 public class MainActivity extends AppCompatActivity {
 
+    public Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         switchFragment(new SplashScreen());
     }
@@ -52,10 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void switchFragment(Fragment fragment,Bundle bundle,boolean addTobackStack){
         switchFragment(fragment,addTobackStack,bundle,false,false);
-    }
-
-    public void clearBackStack(){
-
     }
 
     public void popScreen(){

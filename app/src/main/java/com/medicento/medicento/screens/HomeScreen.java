@@ -1,7 +1,17 @@
 package com.medicento.medicento.screens;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,7 +23,14 @@ import com.medicento.medicento.R;
  * Created by sid on 11/1/18.
  */
 
-public class HomeScreen extends MFragment{
+
+
+public class HomeScreen extends MFragment implements NavigationView.OnNavigationItemSelectedListener{
+
+    DrawerLayout drawer;
+    FragmentManager fragmentManager;
+    Toolbar toolbar;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +38,8 @@ public class HomeScreen extends MFragment{
             /*mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);*/
         }
-        mainActivity.getSupportActionBar().hide();
-        mainActivity.clearBackStack();
+
+
     }
 
     @Override
@@ -38,12 +55,68 @@ public class HomeScreen extends MFragment{
     }
 
     void init(View view){
-        (view.findViewById(R.id.logout)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                preference.delete(Constant.LOGINDATA);
-                mainActivity.switchFragment(new LoginScreen());
-            }
-        });
+        initNav();
+        mainActivity.getSupportActionBar().show();
+        mainActivity.getSupportActionBar().setTitle("New Order");
     }
+
+    void logout(){
+        preference.delete(Constant.LOGINDATA);
+        mainActivity.switchFragment(new LoginScreen());
+    }
+
+    void initNav(){
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                mainActivity, drawer, mainActivity.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        navigationView.setCheckedItem(R.id.nav_new);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+        Fragment fragmentToOpen=null;
+        switch(id){
+            case R.id.nav_logout:
+                logout();
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            case R.id.nav_new:
+                //fragmentToOpen = dashboardFragment;
+                mainActivity.getSupportActionBar().setTitle("New Orders");
+                break;
+            case R.id.nav_inventory:
+                //fragmentToOpen = payslipFragment;
+                mainActivity.getSupportActionBar().setTitle("Inventory");
+                break;
+            case R.id.nav_orders:
+                mainActivity.getSupportActionBar().setTitle("Orders");
+                break;
+        }
+        /*if(fragmentToOpen!=null){
+            fragmentManager.beginTransaction().replace(R.id.page_content, fragmentToOpen).commit();
+        }*/
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    /*@Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            fragmentManager.beginTransaction().replace(R.id.page_content, dashboardFragment).commit();
+            toolbar.setTitle("Overview");
+            //super.onBackPressed();
+        }
+    }*/
 }

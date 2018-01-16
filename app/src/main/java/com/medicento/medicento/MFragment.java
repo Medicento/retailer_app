@@ -3,6 +3,7 @@ package com.medicento.medicento;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.medicento.medicento.utils.Preference;
 
@@ -22,5 +23,9 @@ public class MFragment extends Fragment {
 
     public void finish(){
         mainActivity.getSupportFragmentManager().popBackStack();
+    }
+
+    public View findViewById(int id){
+        return this.getView().findViewById(id);
     }
 }

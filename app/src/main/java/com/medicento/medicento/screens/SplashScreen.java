@@ -28,7 +28,6 @@ public class SplashScreen extends MFragment {
             mParam2 = getArguments().getString(ARG_PARAM2);*/
         }
         mainActivity.getSupportActionBar().hide();
-        mainActivity.clearBackStack();
     }
 
     @Override
