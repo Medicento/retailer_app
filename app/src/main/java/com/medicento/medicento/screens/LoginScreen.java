@@ -117,7 +117,7 @@ public class LoginScreen extends MFragment {
                                     preference.put(Constant.LOGINDATA,object);
                                     Bundle toHome = new Bundle();
                                     toHome.putSerializable(Constant.LOGINDATA,object);
-                                    mainActivity.switchFragment(new HomeScreen(),toHome,false);
+                                    mainActivity.switchFragment(new BillingScreen(),toHome,false);
                                 }
                                 else{
                                     Toast.makeText(mainActivity, "Failed", Toast.LENGTH_SHORT).show();

@@ -13,7 +13,7 @@
     <style name="ToolBarStyle" parent="Theme.AppCompat">
         <item name="android:textColorPrimary">@color/colorPrimary</item>
         <item name="android:textColorSecondary">@color/colorPrimary</item>
-        <item name="actionMenuTextColor">@color/colorPrimary</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
         <item name="android:lineSpacingExtra"></item>
     </style>
 

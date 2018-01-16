@@ -47,7 +47,7 @@ public class SplashScreen extends MFragment {
                 else{
                     Bundle toHome = new Bundle();
                     toHome.putSerializable(Constant.LOGINDATA,object);
-                    mainActivity.switchFragment(new HomeScreen(),toHome,false);
+                    mainActivity.switchFragment(new BillingScreen(),toHome,false);
                 }
             }
         },1000);

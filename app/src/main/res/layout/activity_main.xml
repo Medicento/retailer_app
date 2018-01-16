@@ -17,24 +17,16 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="?attr/colorPrimary"
-            app:navigationIcon="@drawable/ic_back"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            android:fitsSystemWindows="true"/>
-
-    </android.support.design.widget.AppBarLayout>
-
-
-        <!--android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
-
+            android:elevation="5dp"
+            android:fitsSystemWindows="true"
             android:theme="@style/ToolBarStyle"
             app:navigationIcon="@drawable/ic_back"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/-->
+            android:background="?attr/colorPrimary"
+            app:titleTextColor="@android:color/white"
+            app:popupTheme="@style/AppTheme.AppBarOverlay"/>
+
+    </android.support.design.widget.AppBarLayout>
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"

@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.medicento.medicento.screens.BillingScreen;
 import com.medicento.medicento.screens.SplashScreen;
 
 public class MainActivity extends AppCompatActivity {
