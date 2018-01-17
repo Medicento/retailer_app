@@ -15,13 +15,19 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.reflect.TypeToken;
+import com.medicento.medicento.Constant;
 import com.medicento.medicento.MFragment;
 import com.medicento.medicento.R;
 import com.medicento.medicento.models.BillProduct;
+import com.medicento.medicento.models.LoginObject;
 
 import org.w3c.dom.Text;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by sid on 17/1/18.
@@ -30,8 +36,8 @@ import java.util.ArrayList;
 public class InvoiceScreen extends MFragment {
 
     LinearLayout productsView;
-    ProductAdapter adapter;
-    TextView name,dName,phNo;
+    TextView name,dName,phNo,shopName,dateView,timeView;
+    LoginObject user;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +45,7 @@ public class InvoiceScreen extends MFragment {
         mainActivity.getSupportActionBar().setTitle("Invoice No : 98238782738");
         //mainActivity.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         mainActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        user = preference.get(Constant.LOGINDATA,new TypeToken<LoginObject>(){}.getType());
     }
 
     @Nullable
@@ -54,18 +61,27 @@ public class InvoiceScreen extends MFragment {
     }
 
     void init(){
-
+        Calendar now = Calendar.getInstance();
         ArrayList<BillProduct> products = (ArrayList<BillProduct>)getArguments().getSerializable("products");
         productsView =(LinearLayout) findViewById(R.id.products_list);
-        adapter= new ProductAdapter(products);
 
         name = (TextView) findViewById(R.id.nameView);
         phNo = (TextView)findViewById(R.id.phoneView);
         dName = (TextView)findViewById(R.id.doctorView);
+        shopName =(TextView)findViewById(R.id.shopName);
+        timeView=(TextView)findViewById(R.id.timeView);
+        dateView=(TextView)findViewById(R.id.dateView);
 
         name.setText(getArguments().getString("name"));
         phNo.setText(getArguments().getString("phNo"));
         dName.setText(getArguments().getString("dName"));
+        shopName.setText(user.shopName);
+
+        Format format = new SimpleDateFormat("dd-MMM-yyyy");
+        dateView.setText(format.format(now.getTime()));
+
+        format = new SimpleDateFormat("hh : mm a");
+        timeView.setText(format.format(now.getTime()));
 
         for(BillProduct product : products){
             productsView.addView(getItemView(product));
@@ -77,77 +93,18 @@ public class InvoiceScreen extends MFragment {
         TextView medicineName,quantity,batchView,expiryView,mrpView,discountView;
         medicineName=(TextView)itemView.findViewById(R.id.product_name);
         quantity = (TextView)itemView.findViewById(R.id.product_quantity);
-        //batchView = (TextView)itemView.findViewById(R.id.batchNoView);
-        //expiryView = (TextView)itemView.findViewById(R.id.expiryDateView);
+        batchView = (TextView)itemView.findViewById(R.id.batchNoView);
+        expiryView = (TextView)itemView.findViewById(R.id.expiryDateView);
         mrpView = (TextView)itemView.findViewById(R.id.product_amount);
         //discountView = (TextView)itemView.findViewById(R.id.discountView);
         //deleteView = (ImageButton)itemView.findViewById(R.id.product_delete);
 
         medicineName.setText(product.productName);
         quantity.setText(String.valueOf(product.quantity));
-        //holder.batchView.setText(product.batchNo);
-        //holder.expiryView.setText(product.expDate);
+        batchView.setText(product.batchNo);
+        expiryView.setText(product.expDate);
         mrpView.setText(String.valueOf(product.mrp));
         //holder.discountView.setText(String.valueOf(product.discount)+"%");
         return itemView;
-    }
-
-    class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder>{
-        ArrayList<BillProduct> list = new ArrayList<>();
-        View.OnClickListener listener = null;
-        ProductAdapter(ArrayList<BillProduct> list){
-            this.list=list;
-        }
-
-
-        public ArrayList<BillProduct> getList(){
-            return this.list;
-        }
-        public void add(BillProduct product){
-            this.list.add(product);
-            notifyItemInserted(list.size()-1);
-        }
-
-        void add(BillProduct product,int index){
-            this.list.add(index,product);
-            notifyItemInserted(index);
-        }
-
-        @Override
-        public ProductAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_invoice_product, parent, false);
-            return new ProductAdapter.ViewHolder(v);
-        }
-
-        @Override
-        public void onBindViewHolder(final ProductAdapter.ViewHolder holder, int position) {
-            BillProduct product = list.get(position);
-            holder.medicineName.setText(product.productName);
-            holder.quantity.setText(String.valueOf(product.quantity));
-            //holder.batchView.setText(product.batchNo);
-            //holder.expiryView.setText(product.expDate);
-            holder.mrpView.setText(String.valueOf(product.mrp));
-            //holder.discountView.setText(String.valueOf(product.discount)+"%");
-        }
-
-        @Override
-        public int getItemCount() {
-            return list.size();
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-            TextView medicineName,quantity,batchView,expiryView,mrpView,discountView;
-            ImageButton deleteView;
-            ViewHolder(View itemView) {
-                super(itemView);
-                medicineName=(TextView)itemView.findViewById(R.id.product_name);
-                quantity = (TextView)itemView.findViewById(R.id.product_quantity);
-                //batchView = (TextView)itemView.findViewById(R.id.batchNoView);
-                //expiryView = (TextView)itemView.findViewById(R.id.expiryDateView);
-                mrpView = (TextView)itemView.findViewById(R.id.product_amount);
-                //discountView = (TextView)itemView.findViewById(R.id.discountView);
-                //deleteView = (ImageButton)itemView.findViewById(R.id.product_delete);
-            }
-        }
     }
 }
