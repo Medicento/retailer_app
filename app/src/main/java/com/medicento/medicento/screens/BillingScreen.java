@@ -59,7 +59,7 @@ public class BillingScreen extends MFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
         adapter = new BillingAdapter();
         recyclerView.setAdapter(adapter);
-        adapter.add(new BillProduct("sfs","Adf","dfa",Integer.parseInt("23"),Double.parseDouble("23.4"),Double.parseDouble("12.6")));
+        //adapter.add(new BillProduct("sfs","Adf","dfa",Integer.parseInt("23"),Double.parseDouble("23.4"),Double.parseDouble("12.6")));
     }
 
     void init(){
@@ -124,7 +124,7 @@ public class BillingScreen extends MFragment {
 
     void reset(){
         productExp.setText("");
-        productDiscount.setText("");
+        productDiscount.setText("0.00");
         productMrp.setText("");
         productBatch.setText("");
         productQuantity.setText("");
@@ -215,7 +215,7 @@ public class BillingScreen extends MFragment {
                 expiryView = (TextView)itemView.findViewById(R.id.expiryDateView);
                 mrpView = (TextView)itemView.findViewById(R.id.MRPView);
                 discountView = (TextView)itemView.findViewById(R.id.discountView);
-                deleteView=(ImageButton)itemView.findViewById(R.id.product_delete);
+                deleteView = (ImageButton)itemView.findViewById(R.id.product_delete);
             }
         }
     }
