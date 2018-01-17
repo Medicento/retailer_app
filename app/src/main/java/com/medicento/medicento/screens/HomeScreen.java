@@ -39,8 +39,10 @@ public class HomeScreen extends MFragment implements NavigationView.OnNavigation
             /*mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);*/
         }
+        mainActivity.getSupportActionBar().setTitle("Billing");
+        mainActivity.getSupportActionBar().show();
         fragmentManager = getChildFragmentManager();
-        NewOrderFragment = new NewOrderScreen();
+        NewOrderFragment = new BillingScreen();
         InventoryFragment = new InventoryScreen();
         OrdersFragment = new OrdersScreen();
     }
@@ -58,9 +60,8 @@ public class HomeScreen extends MFragment implements NavigationView.OnNavigation
     }
 
     void init(View view){
+
         initNav();
-        mainActivity.getSupportActionBar().setTitle("New Order");
-        mainActivity.getSupportActionBar().show();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.page_content,NewOrderFragment).commit();
     }
@@ -97,7 +98,7 @@ public class HomeScreen extends MFragment implements NavigationView.OnNavigation
                 return true;
             case R.id.nav_new:
                 //fragmentToOpen = dashboardFragment;
-                mainActivity.getSupportActionBar().setTitle("New Orders");
+                mainActivity.getSupportActionBar().setTitle("Billing");
                 switchFragment(NewOrderFragment);
                 break;
             case R.id.nav_inventory:

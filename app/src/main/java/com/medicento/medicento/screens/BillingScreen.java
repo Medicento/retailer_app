@@ -39,9 +39,8 @@ public class BillingScreen extends MFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainActivity.getSupportActionBar().setTitle("Billing");
-        mainActivity.getSupportActionBar().show();
-        mainActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        //mainActivity.getSupportActionBar().setTitle("Billing");
+        //mainActivity.getSupportActionBar().show();
         setHasOptionsMenu(true);
     }
 
