@@ -105,12 +105,23 @@ public class BillingScreen extends MFragment {
                 || batch.isEmpty() || exp.isEmpty() || mrp.isEmpty())){
                     adapter.add(new BillProduct(name,batch,exp,Integer.parseInt(quantity),Double.parseDouble(mrp),Double.parseDouble(discount)));
                     recyclerView.scrollToPosition(adapter.getItemCount()-1);
+                    reset();
                 }
                 else{
                     Toast.makeText(mainActivity,"Incomplete Data",Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    void reset(){
+        productExp.setText("");
+        productDiscount.setText("");
+        productMrp.setText("");
+        productBatch.setText("");
+        productQuantity.setText("");
+        productExp.setText("");
+        productName.setText("");
     }
 
 
