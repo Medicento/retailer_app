@@ -5,15 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
@@ -38,6 +35,7 @@ public class BillingScreen extends MFragment {
     BillingAdapter adapter;
     TextInputEditText productName,productQuantity,productBatch,productExp,productMrp,productDiscount;
     FloatingActionButton addProductButton;
+    TextView noProductView;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,11 +54,11 @@ public class BillingScreen extends MFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        init();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
         adapter = new BillingAdapter();
         recyclerView.setAdapter(adapter);
-        init();
     }
 
     void init(){
@@ -71,22 +69,31 @@ public class BillingScreen extends MFragment {
         productMrp=(TextInputEditText)findViewById(R.id.product_mrp);
         productDiscount=(TextInputEditText)findViewById(R.id.product_discount);
         addProductButton=(FloatingActionButton)findViewById(R.id.add_product);
+        noProductView =(TextView)findViewById(R.id.noProductView);
+
 
         productExp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar today = Calendar.getInstance();
+                productExp.setText("");
+                final Calendar today = Calendar.getInstance();
                 DatePickerDialog datePickerDialog = new DatePickerDialog(mainActivity, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        Format format = new SimpleDateFormat("dd-MMM-yyyy");
-                        Calendar cal = Calendar.getInstance();
-                        cal.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-                        cal.set(Calendar.MONTH,month);
-                        cal.set(Calendar.YEAR,year);
-                        productExp.setText(format.format(cal.getTime()));
+                        if(today.get(Calendar.YEAR)<=year && today.get(Calendar.MONTH)<=month && today.get(Calendar.DAY_OF_MONTH)<=dayOfMonth){
+                            Format format = new SimpleDateFormat("dd-MMM-yyyy");
+                            Calendar cal = Calendar.getInstance();
+                            cal.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                            cal.set(Calendar.MONTH,month);
+                            cal.set(Calendar.YEAR,year);
+                            productExp.setText(format.format(cal.getTime()));
+                        }
+                        else{
+                            Toast.makeText(mainActivity,"Invalid Date",Toast.LENGTH_SHORT).show();
+                        }
                     }
                 },today.get(Calendar.YEAR),today.get(Calendar.MONTH),today.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.getDatePicker().setMinDate(today.getTimeInMillis());
                 datePickerDialog.show();
             }
         });
@@ -147,14 +154,23 @@ public class BillingScreen extends MFragment {
         public ArrayList<BillProduct> getList(){
             return this.list;
         }
+        BillingAdapter(){
+            toggleNoProductVisibility();
+        }
         public void add(BillProduct product){
             this.list.add(product);
             notifyItemInserted(list.size()-1);
+            toggleNoProductVisibility();
         }
 
         void add(BillProduct product,int index){
             this.list.add(index,product);
             notifyItemInserted(index);
+            toggleNoProductVisibility();
+        }
+
+        void toggleNoProductVisibility(){
+            noProductView.setVisibility((this.list.size()==0)?View.VISIBLE:View.GONE);
         }
 
         @Override
