@@ -170,6 +170,7 @@
         <View
             android:id="@+id/separator"
             android:layout_height="1dp"
+            android:padding="2dp"
             android:background="@android:color/darker_gray"
             android:layout_width="match_parent"
             android:layout_below="@id/labels"/>

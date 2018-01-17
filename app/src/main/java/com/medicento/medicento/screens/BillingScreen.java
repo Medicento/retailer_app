@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +59,7 @@ public class BillingScreen extends MFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
         adapter = new BillingAdapter();
         recyclerView.setAdapter(adapter);
+        adapter.add(new BillProduct("sfs","Adf","dfa",Integer.parseInt("23"),Double.parseDouble("23.4"),Double.parseDouble("12.6")));
     }
 
     void init(){
@@ -179,7 +181,7 @@ public class BillingScreen extends MFragment {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(final ViewHolder holder,int position) {
             BillProduct product = list.get(position);
             holder.medicineName.setText(product.productName);
             holder.quantity.setText(String.valueOf(product.quantity));
@@ -187,6 +189,14 @@ public class BillingScreen extends MFragment {
             holder.expiryView.setText(product.expDate);
             holder.mrpView.setText(String.valueOf(product.mrp));
             holder.discountView.setText(String.valueOf(product.discount)+"%");
+            holder.deleteView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    list.remove(holder.getAdapterPosition());
+                    notifyItemRemoved(holder.getAdapterPosition());
+                    toggleNoProductVisibility();
+                }
+            });
         }
 
         @Override
@@ -196,6 +206,7 @@ public class BillingScreen extends MFragment {
 
         class ViewHolder extends RecyclerView.ViewHolder {
             TextView medicineName,quantity,batchView,expiryView,mrpView,discountView;
+            ImageButton deleteView;
             ViewHolder(View itemView) {
                 super(itemView);
                 medicineName=(TextView)itemView.findViewById(R.id.nameView);
@@ -204,6 +215,7 @@ public class BillingScreen extends MFragment {
                 expiryView = (TextView)itemView.findViewById(R.id.expiryDateView);
                 mrpView = (TextView)itemView.findViewById(R.id.MRPView);
                 discountView = (TextView)itemView.findViewById(R.id.discountView);
+                deleteView=(ImageButton)itemView.findViewById(R.id.product_delete);
             }
         }
     }
