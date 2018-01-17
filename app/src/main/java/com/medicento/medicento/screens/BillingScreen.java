@@ -155,8 +155,8 @@ public class BillingScreen extends MFragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             BillProduct product = list.get(position);
-            holder.medicineName.setText(product.productName+" "+(position+1));
-            holder.quantity.setText(String.valueOf(product.quantity+position));
+            holder.medicineName.setText(product.productName);
+            holder.quantity.setText(String.valueOf(product.quantity));
             holder.batchView.setText(product.batchNo);
             holder.expiryView.setText(product.expDate);
             holder.mrpView.setText(String.valueOf(product.mrp));
