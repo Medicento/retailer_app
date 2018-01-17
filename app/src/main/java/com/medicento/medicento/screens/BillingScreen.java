@@ -1,6 +1,8 @@
 package com.medicento.medicento.screens;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -192,9 +194,24 @@ public class BillingScreen extends MFragment {
             holder.deleteView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    list.remove(holder.getAdapterPosition());
-                    notifyItemRemoved(holder.getAdapterPosition());
-                    toggleNoProductVisibility();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity)
+                            .setMessage("Do you really want to delete this product?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    list.remove(holder.getAdapterPosition());
+                                    notifyItemRemoved(holder.getAdapterPosition());
+                                    toggleNoProductVisibility();
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //handled
+                                }
+                            });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
             });
         }

@@ -14,25 +14,12 @@
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_weight="6">
-        <ImageButton
-            android:id="@+id/product_delete"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_close"
-            android:layout_marginEnd="10dp"/>
         <TextView
             android:id="@+id/nameView"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="6"
             android:text="Product Name"/>
-        </LinearLayout>
 
         <View
             android:layout_height="match_parent"
@@ -92,12 +79,37 @@
             android:background="@android:color/darker_gray"
             android:layout_marginHorizontal="10dp"/>
 
-        <TextView
-            android:id="@+id/discountView"
+        <RelativeLayout
             android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:layout_weight="2"
-            android:text="% Discount"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical|end"
+            android:layout_weight="4">
+            <ImageButton
+                android:id="@+id/product_delete"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_cancel"
+                android:layout_marginEnd="10dp"
+                android:layout_centerVertical="true"/>
+            <View
+                android:id="@+id/cancel_sep"
+                android:layout_height="match_parent"
+                android:layout_width="1dp"
+                android:layout_toStartOf="@id/product_delete"
+                android:background="@android:color/darker_gray"
+                android:layout_marginHorizontal="10dp"/>
+            <TextView
+                android:id="@+id/discountView"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textAlignment="textStart"
+                android:layout_toStartOf="@id/cancel_sep"
+                android:text="% Discount"/>
+        </RelativeLayout>
 
     </LinearLayout>
 
