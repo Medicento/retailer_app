@@ -1,23 +1,33 @@
 package com.medicento.medicento.screens;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.medicento.medicento.MFragment;
 import com.medicento.medicento.R;
 import com.medicento.medicento.models.BillProduct;
-import com.medicento.medicento.models.Product;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by sid on 16/1/18.
@@ -26,10 +36,14 @@ import java.util.ArrayList;
 public class BillingScreen extends MFragment {
     RecyclerView recyclerView;
     BillingAdapter adapter;
+    TextInputEditText productName,productQuantity,productBatch,productExp,productMrp,productDiscount;
+    FloatingActionButton addProductButton;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainActivity.getSupportActionBar().setTitle("Billing");
+        mainActivity.getSupportActionBar().show();
+        mainActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         setHasOptionsMenu(true);
     }
 
@@ -46,17 +60,59 @@ public class BillingScreen extends MFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
         adapter = new BillingAdapter();
         recyclerView.setAdapter(adapter);
-
-        BillProduct product = new BillProduct("Product Name",
-                "BTC1234",
-                "27-Jan-2018",
-                2,
-                37.55,
-                27);
-        adapter.add(product);
-        adapter.add(product);
-
+        init();
     }
+
+    void init(){
+        productName=(TextInputEditText)findViewById(R.id.product_name);
+        productQuantity=(TextInputEditText)findViewById(R.id.product_quantity);
+        productBatch=(TextInputEditText)findViewById(R.id.product_batch_no);
+        productExp=(TextInputEditText)findViewById(R.id.product_expiry_date);
+        productMrp=(TextInputEditText)findViewById(R.id.product_mrp);
+        productDiscount=(TextInputEditText)findViewById(R.id.product_discount);
+        addProductButton=(FloatingActionButton)findViewById(R.id.add_product);
+
+        productExp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar today = Calendar.getInstance();
+                DatePickerDialog datePickerDialog = new DatePickerDialog(mainActivity, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        Format format = new SimpleDateFormat("dd-MMM-yyyy");
+                        Calendar cal = Calendar.getInstance();
+                        cal.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                        cal.set(Calendar.MONTH,month);
+                        cal.set(Calendar.YEAR,year);
+                        productExp.setText(format.format(cal.getTime()));
+                    }
+                },today.get(Calendar.YEAR),today.get(Calendar.MONTH),today.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.show();
+            }
+        });
+
+        addProductButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name=productName.getText().toString().trim(),
+                        quantity = productQuantity.getText().toString().trim(),
+                        batch = productBatch.getText().toString().trim(),
+                        exp = productExp.getText().toString().trim(),
+                        mrp = productMrp.getText().toString().trim(),
+                        discount = productDiscount.getText().toString().trim();
+
+                if(!(name.isEmpty() || quantity.isEmpty() || discount.isEmpty()
+                || batch.isEmpty() || exp.isEmpty() || mrp.isEmpty())){
+                    adapter.add(new BillProduct(name,batch,exp,Integer.parseInt(quantity),Double.parseDouble(mrp),Double.parseDouble(discount)));
+                    recyclerView.scrollToPosition(adapter.getItemCount()-1);
+                }
+                else{
+                    Toast.makeText(mainActivity,"Incomplete Data",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
