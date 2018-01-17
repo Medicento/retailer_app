@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <com.medicento.medicento.components.MEditText
@@ -18,7 +19,7 @@
             android:layout_weight="1"
             android:layout_marginEnd="10dp"
             app:leftImage="@drawable/user"
-            app:hint="Name"/>
+            app:hint="Patient's Name"/>
 
         <com.medicento.medicento.components.MEditText
             android:id="@+id/phoneView"
@@ -29,6 +30,21 @@
             app:inputType="number"
             app:leftImage="@drawable/call"
             app:hint="Phone Number" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp">
+
+        <com.medicento.medicento.components.MEditText
+            android:id="@+id/doctorView"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            app:leftImage="@drawable/doctor"
+            app:hint="Doctor's Name"/>
+
     </LinearLayout>
 
     <RelativeLayout

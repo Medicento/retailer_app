@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import com.medicento.medicento.MFragment;
 import com.medicento.medicento.R;
+import com.medicento.medicento.components.MEditText;
 import com.medicento.medicento.models.BillProduct;
 
 import java.text.Format;
@@ -36,13 +38,14 @@ import java.util.Calendar;
 public class BillingScreen extends MFragment {
     RecyclerView recyclerView;
     BillingAdapter adapter;
+    MEditText name,dName,phNo;
     TextInputEditText productName,productQuantity,productBatch,productExp,productMrp,productDiscount;
     FloatingActionButton addProductButton;
     TextView noProductView;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //mainActivity.getSupportActionBar().setTitle("Billing");
+        mainActivity.getSupportActionBar().setTitle("Billing");
         //mainActivity.getSupportActionBar().show();
         setHasOptionsMenu(true);
     }
@@ -74,6 +77,9 @@ public class BillingScreen extends MFragment {
         addProductButton=(FloatingActionButton)findViewById(R.id.add_product);
         noProductView =(TextView)findViewById(R.id.noProductView);
 
+        name = (MEditText)findViewById(R.id.nameView);
+        phNo = (MEditText)findViewById(R.id.phoneView);
+        dName = (MEditText)findViewById(R.id.doctorView);
 
         productExp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,9 +151,25 @@ public class BillingScreen extends MFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id=  item.getItemId();
         if(id==R.id.generate_bill){
-            //GENERATE BILL
+            Bundle bundle = new Bundle();
+            bundle.putString("name",name.getText());
+            bundle.putString("dName",dName.getText());
+            bundle.putString("phNo",phNo.getText());
+            bundle.putSerializable("products",adapter.getList());
+            mainActivity.switchFragment(new InvoiceScreen(),bundle,true);
+            return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mainActivity.getSupportActionBar().setTitle("Billing");
+        reset();
+        name.setText("");
+        phNo.setText("");
+        dName.setText("");
     }
 
     class BillingAdapter extends RecyclerView.Adapter<BillingAdapter.ViewHolder>{

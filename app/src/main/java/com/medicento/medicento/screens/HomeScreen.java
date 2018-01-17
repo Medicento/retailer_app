@@ -10,6 +10,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,7 +31,6 @@ public class HomeScreen extends MFragment implements NavigationView.OnNavigation
 
     DrawerLayout drawer;
     FragmentManager fragmentManager;
-
     MFragment NewOrderFragment, InventoryFragment, OrdersFragment;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,6 @@ public class HomeScreen extends MFragment implements NavigationView.OnNavigation
             /*mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);*/
         }
-        mainActivity.getSupportActionBar().setTitle("Billing");
         mainActivity.getSupportActionBar().show();
         fragmentManager = getChildFragmentManager();
         NewOrderFragment = new BillingScreen();
@@ -55,12 +54,16 @@ public class HomeScreen extends MFragment implements NavigationView.OnNavigation
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onViewCreated(View view, final Bundle bundle){
         init(view);
     }
 
     void init(View view){
-
         initNav();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.page_content,NewOrderFragment).commit();
@@ -73,14 +76,13 @@ public class HomeScreen extends MFragment implements NavigationView.OnNavigation
 
     void initNav(){
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        mainActivity.toggle = new ActionBarDrawerToggle(
                 mainActivity, drawer, mainActivity.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+        drawer.setDrawerListener(mainActivity.toggle);
+        mainActivity.toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
         navigationView.setCheckedItem(R.id.nav_new);
     }
 

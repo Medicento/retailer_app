@@ -2,11 +2,13 @@ package com.medicento.medicento;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.medicento.medicento.screens.BillingScreen;
 import com.medicento.medicento.screens.SplashScreen;
@@ -14,6 +16,7 @@ import com.medicento.medicento.screens.SplashScreen;
 public class MainActivity extends AppCompatActivity {
 
     public Toolbar toolbar;
+    public ActionBarDrawerToggle toggle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,16 @@ public class MainActivity extends AppCompatActivity {
             }
             if(addFragment) fragmentTransaction.add(R.id.container,fragment).commitAllowingStateLoss();
             else fragmentTransaction.replace(R.id.container, fragment).commitAllowingStateLoss();
+            if(toggle!=null){
+                toggle.setDrawerIndicatorEnabled(false);
+                toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onBackPressed();
+                    }
+                });
+                toggle.syncState();
+            }
         }
     }
 
@@ -67,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
+        Log.d("Home","Clicked");
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             return true;
