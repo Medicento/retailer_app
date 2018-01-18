@@ -1,8 +1,6 @@
 package com.medicento.medicento.screens;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,23 +8,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.medicento.medicento.MFragment;
 import com.medicento.medicento.R;
 import com.medicento.medicento.models.Bill;
-import com.medicento.medicento.models.BillProduct;
-
-import org.w3c.dom.Text;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by sid on 16/1/18.
@@ -47,7 +41,7 @@ public class OrdersScreen extends MFragment {
     @Override
     public void onResume() {
         super.onResume();
-        mainActivity.getSupportActionBar().setTitle("Orders");
+        mainActivity.getSupportActionBar().setTitle("Sales");
     }
 
     @Nullable
@@ -136,6 +130,7 @@ public class OrdersScreen extends MFragment {
             holder.name.setText(product.name);
             holder.phNo.setText(String.valueOf(product.phNo));
             holder.amount.setText(String.format("%.2f",product.total));
+            holder.invoice_num.setText(product.invoiceNm);
             holder.viewInvoice.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -152,14 +147,15 @@ public class OrdersScreen extends MFragment {
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
-            TextView name,phNo,amount;
-            LinearLayout viewInvoice;
+            TextView name,phNo,amount,invoice_num;
+            Button viewInvoice;
             ViewHolder(View itemView) {
                 super(itemView);
                 name=(TextView)itemView.findViewById(R.id.name);
                 phNo = (TextView)itemView.findViewById(R.id.ph_number);
                 amount = (TextView)itemView.findViewById(R.id.total_amount);
-                viewInvoice = (LinearLayout)itemView.findViewById(R.id.view_invoice);
+                invoice_num = (TextView)itemView.findViewById(R.id.invoice_num);
+                viewInvoice = (Button)itemView.findViewById(R.id.view_invoice);
             }
         }
     }

@@ -110,7 +110,7 @@ public class HomeScreen extends MFragment implements NavigationView.OnNavigation
                 switchFragment(InventoryFragment);
                 break;
             case R.id.nav_orders:
-                mainActivity.getSupportActionBar().setTitle("Orders");
+                //mainActivity.getSupportActionBar().setTitle("Sales");
                 mainActivity.selectedItem = OrdersFragment;
                 switchFragment(OrdersFragment);
                 break;

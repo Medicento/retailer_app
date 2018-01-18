@@ -9,7 +9,7 @@ import java.util.Date;
  */
 
 public class Bill implements Serializable {
-    public String name, doctorName, phNo, invoiceNn;
+    public String name, doctorName, phNo, invoiceNm;
     public ArrayList<BillProduct> products = new ArrayList<>();
     public double total=0, totalDiscount=0;
     public double amountTopay,roundOff;
@@ -20,7 +20,7 @@ public class Bill implements Serializable {
         this.name = name;
         this.doctorName = doctorName;
         this.phNo = phNo;
-        this.invoiceNn = invoiceNn;
+        this.invoiceNm = invoiceNn;
         this.total = total;
     }
 }

@@ -11,6 +11,18 @@
         android:gravity="center_vertical">
 
         <TextView
+            android:id="@+id/invoice_num"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="Invoice No"/>
+        <View
+            android:layout_height="match_parent"
+            android:layout_width="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginHorizontal="10dp"/>
+
+        <TextView
             android:id="@+id/name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -46,7 +58,14 @@
             android:background="@android:color/darker_gray"
             android:layout_marginHorizontal="10dp"/>
 
-        <LinearLayout
+        <Button
+            android:id="@+id/view_invoice"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:text="View Invoice"/>
+
+        <!--LinearLayout
             android:id="@+id/view_invoice"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
@@ -60,7 +79,7 @@
                 android:layout_height="1dp"
                 android:layout_width="match_parent"
                 android:background="@android:color/darker_gray" />
-        </LinearLayout>
+        </LinearLayout-->
 
     </LinearLayout>
 
