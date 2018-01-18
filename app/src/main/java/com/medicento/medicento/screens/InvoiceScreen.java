@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 import com.medicento.medicento.Constant;
@@ -58,6 +59,22 @@ public class InvoiceScreen extends MFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         init();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_invoice,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id= item.getItemId();
+        if(id==R.id.print_invoice){
+            Toast.makeText(mainActivity,"Your bill no. 97823 is printed.",Toast.LENGTH_LONG).show();
+            goBack();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     void init(){
