@@ -13,10 +13,14 @@ import android.view.View;
 import com.medicento.medicento.screens.BillingScreen;
 import com.medicento.medicento.screens.SplashScreen;
 
+import java.util.Stack;
+
 public class MainActivity extends AppCompatActivity {
 
     public Toolbar toolbar;
     public ActionBarDrawerToggle toggle;
+    public Fragment selectedItem= null;
+    Stack<Fragment> fragmentStack = new Stack<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         String backStateName = fragment.getClass().getName();
         boolean fragmentPopped = false;
         try{
-            fragmentPopped = getSupportFragmentManager().popBackStackImmediate(backStateName,0);
+            //fragmentPopped = getSupportFragmentManager().popBackStackImmediate(backStateName,0);
         }catch (IllegalStateException e){/*HANDLED*/}
 
         if(!fragmentPopped){
@@ -42,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
             if (addToBackStack) {
                 fragmentTransaction.addToBackStack(backStateName);
             }
-            if(addFragment) fragmentTransaction.add(R.id.container,fragment).commitAllowingStateLoss();
+            if(addFragment){
+                fragmentTransaction.add(R.id.container,fragment).commitAllowingStateLoss();
+            }
             else fragmentTransaction.replace(R.id.container, fragment).commitAllowingStateLoss();
             if(toggle!=null){
                 toggle.setDrawerIndicatorEnabled(false);
@@ -67,6 +73,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void switchFragment(Fragment fragment,Bundle bundle,boolean addTobackStack){
         switchFragment(fragment,addTobackStack,bundle,false,false);
+    }
+
+    public void switchFragment(Fragment fragment,Bundle bundle,boolean addTobackStack, boolean addFragment){
+        switchFragment(fragment,addTobackStack,bundle,false,addFragment);
     }
 
     public void popScreen(){

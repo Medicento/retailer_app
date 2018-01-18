@@ -100,9 +100,8 @@ public class InvoiceScreen extends MFragment {
         double rawToPay = bill.total-bill.totalDiscount;
         amountAfterDiscount.setText(String.format("%.1f", (rawToPay)));
 
-        double round = Math.round(rawToPay);
-        roundOff.setText(String.format("%.1f", (round-rawToPay)));
-        amountToPay.setText(String.format("%.1f", (round)));
+        roundOff.setText(String.format("%.1f", bill.roundOff));
+        amountToPay.setText(String.format("%.1f", bill.amountTopay));
 
         Format format = new SimpleDateFormat("dd-MMM-yyyy");
         dateView.setText(format.format(now.getTime()));

@@ -1,6 +1,5 @@
 package com.medicento.medicento.screens;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -9,10 +8,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +27,7 @@ import com.medicento.medicento.R;
 public class HomeScreen extends MFragment implements NavigationView.OnNavigationItemSelectedListener{
 
     DrawerLayout drawer;
+    NavigationView navigationView;
     FragmentManager fragmentManager;
     MFragment NewOrderFragment, InventoryFragment, OrdersFragment;
     @Override
@@ -60,13 +58,14 @@ public class HomeScreen extends MFragment implements NavigationView.OnNavigation
 
     @Override
     public void onViewCreated(View view, final Bundle bundle){
-        init(view);
+        init();
     }
 
-    void init(View view){
+    void init(){
         initNav();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.page_content,NewOrderFragment).commit();
+        if(mainActivity.selectedItem==null)transaction.replace(R.id.page_content,NewOrderFragment).commit();
+        else transaction.replace(R.id.page_content,mainActivity.selectedItem).commit();
     }
 
     void logout(){
@@ -81,17 +80,17 @@ public class HomeScreen extends MFragment implements NavigationView.OnNavigation
         drawer.setDrawerListener(mainActivity.toggle);
         mainActivity.toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_new);
     }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        Fragment fragmentToOpen=null;
         switch(id){
             case R.id.nav_logout:
                 logout();
@@ -101,15 +100,18 @@ public class HomeScreen extends MFragment implements NavigationView.OnNavigation
             case R.id.nav_new:
                 //fragmentToOpen = dashboardFragment;
                 mainActivity.getSupportActionBar().setTitle("New Bill");
+                mainActivity.selectedItem = NewOrderFragment;
                 switchFragment(NewOrderFragment);
                 break;
             case R.id.nav_inventory:
                 //fragmentToOpen = payslipFragment;
                 mainActivity.getSupportActionBar().setTitle("Inventory");
+                mainActivity.selectedItem = InventoryFragment;
                 switchFragment(InventoryFragment);
                 break;
             case R.id.nav_orders:
                 mainActivity.getSupportActionBar().setTitle("Orders");
+                mainActivity.selectedItem = OrdersFragment;
                 switchFragment(OrdersFragment);
                 break;
         }

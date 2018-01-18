@@ -146,12 +146,16 @@ public class BillingScreen extends MFragment {
         bill.doctorName = dName.getText().trim();
         bill.phNo = phNo.getText().trim();
         bill.products = adapter.getList();
-
+        bill.created = Calendar.getInstance().getTime();
         if(!(bill.name.isEmpty() || bill.products.size()==0)){
             for(BillProduct product : bill.products){
                 bill.total+=product.mrp;
                 bill.totalDiscount+=product.discount*product.mrp/100.00;
             }
+            double rawToPay = bill.total-bill.totalDiscount;
+            double round = Math.round(rawToPay);
+            bill.roundOff = round-rawToPay;
+            bill.amountTopay = round;
             return bill;
         }
         return null;

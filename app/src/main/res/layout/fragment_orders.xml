@@ -2,11 +2,117 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:padding="40dp">
+
+    <LinearLayout
+        android:id="@+id/selectDateView"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_height="25dp"
+            android:layout_width="25dp"
+            android:scaleType="fitXY"
+            android:background="@android:color/transparent"
+            android:src="@drawable/calendar"
+            android:elevation="5dp"/>
+
+        <TextView
+            android:layout_marginStart="10dp"
+            android:id="@+id/selectedDateView"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:text="Today's Bills"/>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@android:color/darker_gray"
+        android:layout_marginVertical="10dp"/>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="Consumer's Name"/>
+        <View
+            android:layout_height="match_parent"
+            android:layout_width="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginHorizontal="10dp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:text="Phone Number"/>
+        <View
+            android:layout_height="match_parent"
+            android:layout_width="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginHorizontal="10dp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="Total Amount"/>
+        <View
+            android:layout_height="match_parent"
+            android:layout_width="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginHorizontal="10dp"/>
+
+        <RelativeLayout
+            android:id="@+id/view_all"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/listAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" List All"/>
+            <View
+                android:layout_height="1dp"
+                android:layout_below="@id/listAll"
+                android:layout_alignEnd="@id/listAll"
+                android:layout_width="wrap_content"
+                android:background="@android:color/darker_gray" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@android:color/darker_gray"
+        android:layout_marginVertical="10dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/bills"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Orders"/>
+        android:id="@+id/noProductView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No Products Added"
+        android:textAlignment="center"
+        android:gravity="center"/>
 
 </LinearLayout>
