@@ -291,9 +291,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sub Total :"/>
+                    android:text="Sub Total : "/>
 
                 <TextView
+                    android:id="@+id/total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"
@@ -307,9 +308,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Discount :"/>
+                    android:text="Total Discount : "/>
 
                 <TextView
+                    android:id="@+id/totalDiscount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"
@@ -323,9 +325,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Amount after discount :"/>
+                    android:text="Amount after discount : "/>
 
                 <TextView
+                    android:id="@+id/amountAfterDiscount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"
@@ -340,9 +343,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rounding Off :"/>
+                    android:text="Rounding Off : "/>
 
                 <TextView
+                    android:id="@+id/roundOff"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"
@@ -356,9 +360,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Due Amount :"/>
+                    android:text="Due Amount : "/>
 
                 <TextView
+                    android:id="@+id/amountPayable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"
@@ -386,6 +391,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
                 android:text="Medicento"/>

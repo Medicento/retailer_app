@@ -9,7 +9,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +23,7 @@ import android.widget.Toast;
 import com.medicento.medicento.MFragment;
 import com.medicento.medicento.R;
 import com.medicento.medicento.components.MEditText;
+import com.medicento.medicento.models.Bill;
 import com.medicento.medicento.models.BillProduct;
 
 import java.text.Format;
@@ -45,7 +45,7 @@ public class BillingScreen extends MFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainActivity.getSupportActionBar().setTitle("Billing");
+        mainActivity.getSupportActionBar().setTitle("New Bill");
         //mainActivity.getSupportActionBar().show();
         setHasOptionsMenu(true);
     }
@@ -140,6 +140,23 @@ public class BillingScreen extends MFragment {
         productName.setText("");
     }
 
+    Bill generateBill(){
+        Bill bill = new Bill();
+        bill.name = name.getText().trim();
+        bill.doctorName = dName.getText().trim();
+        bill.phNo = phNo.getText().trim();
+        bill.products = adapter.getList();
+
+        if(!(bill.name.isEmpty() || bill.products.size()==0)){
+            for(BillProduct product : bill.products){
+                bill.total+=product.mrp;
+                bill.totalDiscount+=product.discount*product.mrp/100.00;
+            }
+            return bill;
+        }
+        return null;
+    }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -149,15 +166,20 @@ public class BillingScreen extends MFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id=  item.getItemId();
+        int id = item.getItemId();
         if(id==R.id.generate_bill){
             Bundle bundle = new Bundle();
-            bundle.putString("name",name.getText());
-            bundle.putString("dName",dName.getText());
-            bundle.putString("phNo",phNo.getText());
-            bundle.putSerializable("products",adapter.getList());
-            mainActivity.switchFragment(new InvoiceScreen(),bundle,true);
-            return true;
+            Bill bill = generateBill();
+            if(bill!=null){
+                bundle.putSerializable("Bill",generateBill());
+                mainActivity.switchFragment(new InvoiceScreen(),bundle,true);
+                return true;
+            }
+            else{
+                Toast.makeText(mainActivity,"Incomplete Data",Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
         }
         return super.onOptionsItemSelected(item);
     }

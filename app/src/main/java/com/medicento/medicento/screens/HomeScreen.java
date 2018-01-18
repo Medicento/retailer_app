@@ -100,7 +100,7 @@ public class HomeScreen extends MFragment implements NavigationView.OnNavigation
                 return true;
             case R.id.nav_new:
                 //fragmentToOpen = dashboardFragment;
-                mainActivity.getSupportActionBar().setTitle("Billing");
+                mainActivity.getSupportActionBar().setTitle("New Bill");
                 switchFragment(NewOrderFragment);
                 break;
             case R.id.nav_inventory:
