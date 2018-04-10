@@ -1,1 +1,0 @@
-# retailer_app
